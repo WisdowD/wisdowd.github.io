@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - Bookstore</title>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+    * {
+      scrollbar-width: none;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background-color: #d4cab0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+    }
+
+    header {
+      background-color: #4c372a;
+      color: #d4cab0;
+      display: flex;
+      align-items: center;
+      justify-content: left;
+      gap: 18%;
+      padding: 2%;
+      width: 100%;
+      height: 8vh;
+    }
+
+    header img {
+      width: 20%;
+      height: auto;
+    }
+
+    header h1 {
+      font-size: 2rem;
+    }
+
+    .cadastro-container {
+      position: absolute;
+      display: none;
+      top: 25vh;
+      height: 65%;
+      width: 25%;
+      background-color: whitesmoke;
+      border-radius: 1vh;
+
+    }
+
+    .c-c-cad {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      justify-content: center;
+      padding: 3vh;
+    }
+
+    .login-container {
+      position: absolute;
+      display: block;
+      top: 25vh;
+      height: 65%;
+      width: 25%;
+      background-color: whitesmoke;
+      border-radius: 1vh;
+
+    }
+
+    .p-inutil {
+      font-weight: 3rem;
+      top: 3vh;
+      right: 13vh;
+      position: absolute;
+    }
+
+    .p-inutil-a {
+      font-weight: 3rem;
+      top: 3vh;
+      right: 10vh;
+      position: absolute;
+    }
+
+    .c-c {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      justify-content: center;
+      padding: 3vh;
+    }
+
+    .btn-input,
+    .btn-login {
+      padding: 10px;
+      border-radius: 1.1vh;
+      border: 0.3vh solid rgb(210, 210, 210);
+      margin: 5px 5px 5px 5px;
+    }
+
+    .btn-login {
+      cursor: pointer;
+      background-color: #4c372a;
+      color: #d4cab0;
+      font-size: 2.5vh;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    .btn-input {
+      cursor: text;
+    }
+
+    .g_id_signin {
+      cursor: pointer;
+      margin: 5px 5px 5px 5px;
+      border: 0.1vh solid rgb(210, 210, 210);
+      border-radius: 1.1vh;
+    }
+
+    .help {
+      font-size: 2.4vh;
+      text-decoration: none;
+      cursor: pointer;
+      color: #4c372a;
+      margin: 5px 5px 5px 5px;
+    }
+
+    .btn-input,
+    .btn-login,
+    .help {
+      outline: none;
+      transition: filter 0.1s ease-in-out;
+    }
+
+    .btn-input:hover,
+    .btn-login:hover,
+    .help:hover {
+      filter: brightness(0.7);
+    }
+
+    #cad_btn {
+      outline: none;
+      padding: 10px;
+      border-radius: 1.1vh;
+      border: 0.3vh solid rgb(210, 210, 210);
+      margin: 5px 5px 5px 5px;
+      cursor: pointer;
+      background-color: #d4cab0;
+      color: #4c372a;
+      font-size: 2.5vh;
+      font-family: 'Roboto', sans-serif;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <img src="Img/logoClara.png" alt="Logo da Bookstore" />
+    <h1>Bem-vindo à Bookstore</h1>
+  </header>
+
+  <!-- LOGIN -->
+  <div class="login-container" id="login">
+    <div class="c-c">
+      <p class="p-inutil">Faça login para continuar</p>
+
+      <input type="email" class="btn-input" name="" id="log_email" placeholder="Email" style="margin-top: 10vh;">
+      <input type="password" class="btn-input" name="" id="log_senha" placeholder="Senha">
+      <a class="help" href="">Esqueceu a senha?</a>
+
+      <div id="g_id_onload" data-client_id="555875137491-k7g9sdtcm6a8iv9i3soiu0572i8heh4a.apps.googleusercontent.com"
+        data-callback="handleCredentialResponse" data-auto_prompt="false"></div>
+      <div class="g_id_signin" data-type="standard" data-size="large" data-theme="outline" data-text="signin_with"
+        data-shape="rectangular" data-logo_alignment="left"></div>
+
+      <input onclick="fazerLogin()" class="btn-login" type="button" value="Entrar">
+      <input onclick="cadastro()" class="btn-login" id="cadastrar" type="button" value="Cadastro"
+        style="background-color: #d4cab0; color:#4c372a">
+    </div>
+  </div>
+  <!-- LOGIN -->
+
+  <!-- CADASTRO -->
+  <div class="cadastro-container" id="cadastro">
+    <div class="c-c-cad">
+      <p class="p-inutil-a">Faça o cadastro para continuar</p>
+
+      <input type="email" class="btn-input" name="" id="nome_cad" placeholder="Nome do Perfil" style="margin-top: 8vh;">
+      <input type="email" class="btn-input" name="" id="email_cad" placeholder="Email">
+      <input type="password" class="btn-input" name="" id="senha_cad" placeholder="Senha">
+      <input type="password" class="btn-input" name="" id="con_senha_cad" placeholder="Confirmar Senha">
+      <input onclick=" enviarCadastro()" class="btn-login" type="button" value="Cadastrar">
+
+      <input type="button" onclick="voltarLogin()" class="help" id="cad_btn" value="Voltar para o login"
+        style="margin-top: 10px;">
+    </div>
+  </div>
+  <!-- CADASTRO -->
+
+  <script>
+
+    function handleCredentialResponse(response) {
+      const jwt = response.credential;
+      const payload = JSON.parse(atob(jwt.split(".")[1]));
+
+      // Verifica se o usuário já tem dados salvos
+      const usuarioExistente = JSON.parse(localStorage.getItem("usuario"));
+
+      const usuarioAtualizado = {
+        email: payload.email,
+        nome: usuarioExistente?.nome || payload.name,
+        bio: usuarioExistente?.bio || "",
+        cor: usuarioExistente?.cor || "#000000",
+        avatar: usuarioExistente?.avatar || payload.picture,
+        foto: payload.picture // a imagem padrão do Google
+      };
+
+      localStorage.setItem("usuario", JSON.stringify(usuarioAtualizado));
+      window.location.href = "perfil.html";
+    }
+
+    const loginModal = document.getElementById('login')
+    const cadastroModal = document.getElementById('cadastro')
+
+    function cadastro() {
+      loginModal.style.display = 'none'
+      cadastroModal.style.display = 'block'
+
+    }
+
+    function voltarLogin() {
+      cadastroModal.style.display = 'none';
+      loginModal.style.display = 'block';
+    }
+
+    function emailValido(email) {
+      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return regex.test(email);
+    }
+
+    function fazerLogin() {
+      const email = document.getElementById('log_email').value
+      const senha = document.getElementById('log_senha').value
+
+      if (email == '' || senha == '') {
+        alert('Preencha todos os campos!')
+        return;
+      }
+
+      else if (!emailValido(email)) {
+        alert('Email Invalido, insira um valido!')
+        return;
+      }
+
+      else {
+        fetch("/api/usuario/login", {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ email: email, senha: senha })
+        })
+          .then(response => response.json())
+
+          .then(data => {
+            if (data.sucesso) {
+              localStorage.setItem('usuario', JSON.stringify(data.usuario));
+              window.location.href = 'perfil.html';
+
+              alert(`Bem-vindo, ${data.usuario.nome}!`);
+            }
+          })
+          .catch(error => {
+            alert('Erro na requisição: ' + error);
+            console.log('Error:' + error)
+          });
+      }
+    }
+
+    function enviarCadastro() {
+      const nome = document.getElementById('nome_cad').value
+      const email = document.getElementById('email_cad').value;
+      const senha = document.getElementById('senha_cad').value;
+      const conf_senha = document.getElementById('con_senha_cad').value
+
+      if (nome == '' || email == '' || senha == '') {
+        alert('Preencha todos os campos!')
+        return;
+      }
+
+      else if (senha != conf_senha) {
+        alert('Confirme corretamente a senha!')
+        return;
+      }
+
+      else if (!emailValido(email)) {
+        alert('Email Invalido, insira um valido!')
+        return;
+      }
+
+      else {
+        fetch("/api/usuario/cadastrar", {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ nome: nome, email: email, senha: senha })
+        })
+          .then(response => response.json())
+          .then(data => {
+            if (data.sucesso) {
+              alert('Conta cadastrada com sucesso!');
+              voltarLogin();
+            } else {
+              alert('Erro ao cadastrar conta: ' + data.mensagem);
+            }
+          })
+          .catch(error => {
+            alert('Erro na requisição: ' + error);
+            console.log('Error:' + error)
+          });
+      }
+    }
+  </script>
+</body>
+
+</html>

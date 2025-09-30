@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bookstore</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Manifest -->
+    <link rel="manifest" href="./manifest.json" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <!-- Ícones -->
+    <link rel="icon" href="./img/icons/icon-192x192.png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="./img/icons/icon-512x512.png" />
+  </head>
+
+  <body>
+    <div class="container-geral">
+      <header class="header">
+        <div class="container header-content">
+          <img src="./Img/logo.png" alt="Logo Bookstore" class="main-logo" />
+
+          <div class="search-bar">
+            <input type="text" placeholder="Pesquisar..." />
+            <button aria-label="Pesquisar">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="feather feather-search"
+              >
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </button>
+          </div>
+
+          <div class="icones">
+            <div id="perfil-area"></div>
+          </div>
+        </div>
+      </header>
+
+      <nav class="main-nav">
+        <ul class="container">
+          <li>
+            <a href="#" class="nav-link active" data-target="catalog"
+              >Catálogo</a
+            >
+          </li>
+          <li>
+            <a href="#" class="nav-link" data-target="promotions">Destaques</a>
+          </li>
+          <li>
+            <a href="#" class="nav-link" data-target="favorites">Favoritos</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="banner">
+      <img src="./Img/MaisVendidosMelhor.png" alt="Banner de Mais Vendidos" />
+    </div>
+
+    <main class="container">
+      <section class="section" id="highlights-section">
+        <h2 class="section-title">Destaques</h2>
+        <div class="book-list" id="destaques-list">
+          <div class="arrow left-arrow">&lt;</div>
+          <div class="arrow right-arrow">&gt;</div>
+        </div>
+      </section>
+
+      <section class="section" id="catalog-section">
+        <h2 class="section-title">Mais Vendidos</h2>
+        <div class="book-list" id="mais-vendidos-list">
+          <div class="arrow left-arrow">&lt;</div>
+          <div class="arrow right-arrow">&gt;</div>
+        </div>
+      </section>
+
+      <section class="section" id="preorders-section">
+        <h2 class="section-title">Pré-vendas</h2>
+        <div class="book-list" id="prevendas-list">
+          <div class="arrow left-arrow">&lt;</div>
+          <div class="arrow right-arrow">&gt;</div>
+        </div>
+      </section>
+
+      <section class="section" id="favorites-section">
+        <h2 class="section-title">Seus Favoritos da Comunidade</h2>
+        <div class="book-grid" id="favoritos-comunidade-grid"></div>
+      </section>
+
+      <section class="section" id="promotions-section">
+        <h2 class="section-title">Livros disponíveis</h2>
+        <div class="promotions-content">
+          <div class="filter-sidebar">
+            <h3>Filtrar Livros</h3>
+
+            <div class="filter-group">
+              <h4>Categoria</h4>
+              <label
+                ><input
+                  type="checkbox"
+                  data-filter-type="category"
+                  value="ficcao"
+                />
+                Ficção</label
+              >
+              <label
+                ><input
+                  type="checkbox"
+                  data-filter-type="category"
+                  value="fantasia"
+                />
+                Fantasia</label
+              >
+              <label
+                ><input
+                  type="checkbox"
+                  data-filter-type="category"
+                  value="romance"
+                />
+                Romance</label
+              >
+              <label
+                ><input
+                  type="checkbox"
+                  data-filter-type="category"
+                  value="terror"
+                />
+                Terror</label
+              >
+              <label
+                ><input
+                  type="checkbox"
+                  data-filter-type="category"
+                  value="biografia"
+                />
+                Biografia</label
+              >
+              <h4>Idioma</h4>
+              <label
+                ><input
+                  type="checkbox"
+                  data-filter-type="language"
+                  value="pt"
+                />
+                Português</label
+              >
+              <label
+                ><input
+                  type="checkbox"
+                  data-filter-type="language"
+                  value="en"
+                />
+                Inglês</label
+              >
+              <label
+                ><input
+                  type="checkbox"
+                  data-filter-type="language"
+                  value="es"
+                />
+                Espanhol</label
+              >
+            </div>
+
+            <!-- btn de filtros -->
+
+            <button id="apply-filters-btn" class="btn-primary">
+              Aplicar Filtros
+            </button>
+            <button id="clear-filters-btn" class="btn-secondary">
+              Limpar Filtros
+            </button>
+          </div>
+
+          <div class="promotions-list book-grid" id="promocoes-grid">
+            <!-- Livros serão inseridos aqui via JavaScript -->
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Tipo um card que aparece em quase toda a tela com as info do livro clicado -->
+    <div id="info-livros" class="modal">
+      <div class="conteudo-livros">
+        <span class="btn-fechar">&times;</span>
+        <div class="modal-body">
+          <img id="modal-book-image" src="" alt="Capa do Livro" />
+          <div class="modal-info">
+            <h3 id="titulo-modal">Título do Livro</h3>
+            <p id="autor-modal">Autor(es)</p>
+            <p id="editora-modal">Editora:</p>
+            <p id="data-livro-modal">Data de Publicação:</p>
+            <p id="qnt-pag">Páginas:</p>
+            <p id="idioma-livro">Idioma:</p>
+            <p id="desc-livro">Descrição do Livro</p>
+
+            <div id="google-preview" style="margin-top: 20px"></div>
+
+            <div class="modal-btn">
+              <a
+                id="pre-visualizar-livro"
+                href="#"
+                target="_blank"
+                class="btn-preview"
+                >Pré-visualizar</a
+              >
+
+              <a
+                id="read-book-button"
+                href="#"
+                target="_blank"
+                class="btn-read-book btn-preview"
+                >Ler Livro</a
+              >
+              <span
+                id="read-book-unavailable-message"
+                class="unavailable-message"
+                style="display: none"
+                >Não é possível ler esse livro</span
+              >
+
+              <!-- link do googliu -->
+              <a id="link-google" href="#" target="_blank" class="btn-preview"
+                >Ver no Google Livros</a
+              >
+              <button id="add-fav" class="btn-primary">
+                Adicionar aos Favoritos
+              </button>
+              <button
+                id="remove-fav"
+                class="btn-secondary"
+                style="display: none"
+              >
+                Remover dos Favoritos
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script type="module" src="script.js"></script>
+
+    <script>
+      const perfilArea = document.getElementById("perfil-area");
+      const dados = localStorage.getItem("usuario");
+
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("/service-worker.js")
+          .then(() => console.log("Service Worker registrado com sucesso"))
+          .catch((err) => console.error("Erro ao registrar SW:", err));
+      }
+
+      if (dados) {
+        const usuario = JSON.parse(dados);
+        const avatarUrl = usuario.avatar || usuario.foto;
+
+        perfilArea.innerHTML = `
+    <a href="perfil.html" title="${
+      usuario.nome
+    }" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
+      <img src="${avatarUrl}" alt="Avatar" style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 5px rgba(0,0,0,0.2);">
+      <span style="font-weight: 500; font-size: 1rem;">${
+        usuario.nome.split(" ")[0]
+      }</span>
+    </a>
+  `;
+      } else {
+        perfilArea.innerHTML = `
+    <a href="login.html" aria-label="Minha Conta">
+      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+        <circle cx="12" cy="7" r="4"></circle>
+      </svg>
+    </a>
+  `;
+      }
+    </script>
+  </body>
+</html>

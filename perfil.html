@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Minha Conta - Bookstore</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="profile-container">
+    <nav class="profile-sidebar">
+      <button class="sidebar-button" onclick="showSection('dados')">🧍 Dados Pessoais</button>
+      <button class="sidebar-button" onclick="showSection('enderecos')">🏠 Endereços</button>
+      <button class="sidebar-button" onclick="showSection('pedidos')">📦 Pedidos</button>
+      <button class="sidebar-button" onclick="showSection('cartoes')">💳 Cartões</button>
+      <button class="sidebar-button" onclick="showSection('autenticacao')">🔒 Autenticação</button>
+      <button class="sidebar-button" onclick="showSection('avatar')">🖼 Trocar Avatar</button>
+      <button class="sidebar-button" onclick="logout()">🚪 Sair</button>
+      <button class="sidebar-button back-button" onclick="window.location.href='index.html'">← Voltar à loja</button>
+    </nav>
+    <main class="profile-content">
+      <section id="dados" class="profile-section active">
+        <h2>Dados Pessoais</h2>
+        <img id="foto-perfil" class="avatar-preview" src="" alt="Avatar">
+        <form id="form-dados" class="profile-form">
+          <input type="text" id="nome" placeholder="Nome">
+          <textarea id="bio" placeholder="Bio"></textarea>
+          <div class="color-label">
+            <label>Cor favorita:</label>
+            <input type="color" id="cor">
+          </div>
+          <button type="submit">Salvar</button>
+        </form>
+      </section>
+
+      <section id="enderecos" class="profile-section">
+        <h2>Endereços</h2>
+        <p>Funcionalidade em construção.</p>
+      </section>
+
+      <section id="pedidos" class="profile-section">
+        <h2>Pedidos</h2>
+        <p>Funcionalidade em construção.</p>
+      </section>
+
+      <section id="cartoes" class="profile-section">
+        <h2>Cartões</h2>
+        <p>Funcionalidade em construção.</p>
+      </section>
+
+      <section id="autenticacao" class="profile-section">
+        <h2>Autenticação</h2>
+        <p>Funcionalidade em construção.</p>
+      </section>
+
+      <section id="avatar" class="profile-section">
+        <h2>Escolha seu avatar</h2>
+        <div class="avatar-grid" id="avatarGrid"></div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const usuario = JSON.parse(localStorage.getItem("usuario"));
+    if (!usuario) {
+      alert("Você precisa estar logado.");
+      window.location.href = "login.html";
+    }
+
+    const avatarUrls = [];
+    for (let i = 1; i <= 105; i++) {
+      avatarUrls.push(`./img/avatars/peep-${i}.png`);
+    }
+
+    document.getElementById("foto-perfil").src = usuario.avatar || usuario.foto;
+    document.getElementById("nome").value = usuario.nome || "";
+    document.getElementById("bio").value = usuario.bio || "";
+    document.getElementById("cor").value = usuario.cor || "#000000";
+
+    document.getElementById("form-dados").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const atual = {
+        email: usuario.email,
+        nome: document.getElementById("nome").value,
+        bio: document.getElementById("bio").value,
+        cor: document.getElementById("cor").value,
+        foto: usuario.avatar || usuario.foto
+      };
+      usuario.nome = document.getElementById("nome").value;
+      usuario.bio = document.getElementById("bio").value;
+      usuario.cor = document.getElementById("cor").value;
+      localStorage.setItem("usuario", JSON.stringify(usuario));
+
+      fetch("/api/usuario", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(atual)
+      }).then(() => {
+        alert("Perfil salvo!");
+      }).catch(() => alert("Erro ao salvar no backend"));
+    });
+
+    function showSection(id) {
+      document.querySelectorAll('.profile-section').forEach(sec => sec.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    function logout() {
+      localStorage.removeItem("usuario");
+      window.location.href = "index.html";
+    }
+
+    // Galeria de avatares
+    const avatarGrid = document.getElementById("avatarGrid");
+    avatarUrls.forEach(url => {
+      const img = document.createElement("img");
+      img.src = url;
+      img.classList.add("avatar-option");
+      img.style.cursor = "pointer";
+      img.addEventListener("click", () => {
+        usuario.avatar = url;
+        localStorage.setItem("usuario", JSON.stringify(usuario));
+        document.getElementById("foto-perfil").src = url;
+        alert("Avatar atualizado!");
+      });
+      avatarGrid.appendChild(img);
+    });
+
+    fetch("http://localhost:3000/api/usuario", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: usuario.email,
+        nome: usuario.nome,
+        bio: usuario.bio,
+        cor: usuario.cor,
+        foto: url
+      })
+    });
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+{
+    "name": "Bookstore",
+    "short_name": "Bookstore",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#ffffff",
+    "icons": [
+        {
+            "src": "./Img/logoMobile.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "./Img/logoMobileMaior.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
