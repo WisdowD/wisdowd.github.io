@@ -1,0 +1,9 @@
+{
+  "teste@teste.com": {
+    "email": "teste@teste.com",
+    "nome": "Gb",
+    "foto": "./img/avatars/peep-40.png",
+    "bio": "Sou novo por aqui!",
+    "cor": "#000000"
+  }
+}
